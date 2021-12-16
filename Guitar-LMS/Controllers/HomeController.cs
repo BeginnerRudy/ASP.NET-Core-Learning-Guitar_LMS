@@ -20,6 +20,27 @@ namespace Guitar_LMS.Controllers {
             return View();
         }
 
+        [HttpGet]
+        [Route("{dateStr}")]
+        public ActionResult isDone(string dateStr) {
+            bool isValid = false;
+            var guitarPracticeCard = guitarRepository.GetGuitarPracticeCard(dateStr);
+            bool allDone = true;
+            if (guitarPracticeCard != null && guitarPracticeCard.TodoList.Count != 0) {
+                foreach (TodoListItem item in guitarPracticeCard.TodoList){
+                    if (!item.IsDone) {
+                        allDone = false;
+                        break;
+                    }
+                }
+                isValid = allDone;
+            }
+            var obj = new {
+                valid = isValid
+            };
+            return Json(obj);
+        }
+
         [Route("{dateStr}")]
         public IActionResult ToDoList(string dateStr) {
             var model = new TodoListViewModel();
