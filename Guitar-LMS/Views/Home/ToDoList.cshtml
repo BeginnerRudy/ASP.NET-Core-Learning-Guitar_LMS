@@ -1,1 +1,68 @@
-﻿<p>The Todo List.</p>
+﻿@model Guitar_LMS.ViewModels.TodoListViewModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Guitar Practice Card</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body style="margin: 20px;">
+    <h1>Date: @Model.DateStr</h1>
+    <input type="button" value="Go to Calendar" onclick="location.href='@Url.Action("Index", "Home")'" />
+
+    <h1>TODO</h1>
+    <table class="table table-striped table-bordered table-hover" style="max-width: 500px;">
+        <tr>
+            <td colspan="3">
+                @using (var form = Html.BeginForm("CreateUpdate", "Home", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.EditableItem.Id)
+                    @Html.HiddenFor(model => model.DateStr)
+                    <div class="input-group">
+                        <div>
+                            Task Title: @Html.TextBoxFor(model => model.EditableItem.Title, new { @class = "form-control" })
+                        </div>
+                        <div>
+                            Task Duration in minutes: @Html.TextBoxFor(model => model.EditableItem.DurationInMinute, new { @class = "form-control" })
+                        </div>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-success">@(Model.EditableItem.Id > 0 ? "Update" : "Add")</button>
+                        </div>
+                    </div>
+                    @Html.ValidationSummary()
+                }
+            </td>
+        </tr>
+        @*The section title for the to do list*@
+        <tr>
+            <td>
+                Task
+            </td>
+            <td class="text-right">
+                Duration in Minutes
+            </td>
+            <td class="text-right">
+                Action
+            </td>
+        </tr>
+        @foreach (var item in Model.TodoItems)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" checked="@item.IsDone" onclick="window.location.href = '/Home/ToggleIsDone/@Model.DateStr/@item.Id';" />
+                    @*<a href="/Home/Edit/@Model.DateStr/@item.Id">*@
+                    @item.Title
+                    @*</a>*@
+                </td>
+                <td class="text-right">
+                    @item.DurationInMinute
+                </td>
+                <td class="text-right">
+                    <a href="/Home/Delete/@Model.DateStr/@item.Id" onclick="return confirm('Are you sure?');" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+    <div asp-validation-summary="All" class="text-danger" style="color:red;"></div>
+</body>
+</html>

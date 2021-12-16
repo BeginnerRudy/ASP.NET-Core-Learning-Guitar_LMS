@@ -16,11 +16,13 @@
     <None Remove="Views\" />
     <None Remove="Models\" />
     <None Remove="Views\Home\" />
+    <None Remove="Vi e w M o de l s\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Views\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 </Project>
