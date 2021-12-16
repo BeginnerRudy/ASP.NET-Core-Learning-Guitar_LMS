@@ -1,0 +1,56 @@
+﻿<!doctype html>
+<html lang="en">
+@Html.Hidden("RedirectTo", Url.Action("ToDoList", "Home"))
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>jQuery UI Datepicker - Display inline</title>
+
+    @*<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/smoothness/jquery-ui.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>*@
+
+    <style type="text/css">
+        .Done a {
+            background-color: green !important;
+            background-image: none !important;
+            color: White !important;
+            font-weight: bold !important;
+            font-size: 12pt;
+        }
+
+        .Failed a {
+            background-color: red !important;
+            background-image: none !important;
+            color: White !important;
+            font-weight: bold !important;
+            font-size: 12pt;
+        }
+    </style>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
+
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script>$(function () {
+            $('#datepicker').datepicker({
+
+                beforeShowDay: highlightOdds,
+                maxDate: 0,
+                dateFormat: 'yy-mm-dd',
+                onSelect: function (dateStr) {
+                    var url = $("#RedirectTo").val();
+                    location.href = url + "/" + dateStr;
+                }
+            });
+        });
+        function highlightOdds(date) {
+            return [true, date.getDate() % 2 == 1 ? 'Done' : 'Failed'];
+        }</script>
+
+</head>
+<body>
+    <div id="datepicker"></div>
+    </body>
+</html>
