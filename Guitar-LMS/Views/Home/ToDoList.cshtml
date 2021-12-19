@@ -63,6 +63,24 @@
             </tr>
         }
     </table>
+
+
+    @*<div class="input-group">*@
+    @using (var form = Html.BeginForm("SaveSummary", "Home", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.DateStr)
+        <div>
+            Summary:
+        </div>
+        <div>
+            @Html.TextAreaFor(model => model.Summary, new { style = "width: 400px; height: 200px;" })
+        </div>
+        <div>
+            <button type="submit" class="btn btn-success">Save Summary</button>
+        </div>
+    }
+    @*</div>*@
     <div asp-validation-summary="All" class="text-danger" style="color:red;"></div>
+
 </body>
 </html>

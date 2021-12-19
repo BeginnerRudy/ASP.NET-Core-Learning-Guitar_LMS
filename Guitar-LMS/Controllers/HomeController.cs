@@ -46,8 +46,10 @@ namespace Guitar_LMS.Controllers {
             var model = new TodoListViewModel();
             model.DateStr = dateStr;
             GuitarPracticeCard guitarPracticeCardChanges = guitarRepository.GetGuitarPracticeCard(dateStr);
-            if (guitarPracticeCardChanges != null)
+            if (guitarPracticeCardChanges != null) {
                 model.TodoItems = guitarPracticeCardChanges.TodoList;
+                model.Summary = guitarPracticeCardChanges.Summary;
+            }
             return View(model);
         }
 
@@ -91,5 +93,14 @@ namespace Guitar_LMS.Controllers {
             return RedirectToAction("ToDoList", "Home", new { dateStr = dateStr });
         }
 
+        [HttpPost]
+        public IActionResult SaveSummary(TodoListViewModel model, string dateStr) {
+            GuitarPracticeCard guitarPracticeCard = guitarRepository.GetGuitarPracticeCard(dateStr);
+            if (guitarPracticeCard != null) {
+                guitarPracticeCard.Summary = model.Summary;
+                guitarRepository.UpdateGuitarPracticeCard(guitarPracticeCard);
+            }
+            return RedirectToAction("ToDoList", "Home", new { dateStr = dateStr });
+        }
     }
 }
