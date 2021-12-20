@@ -87,4 +87,4 @@ Two tables:
 - [ ] EF Core 得学会 用熟练，CRUD的下一层级。
 - [ ] LINQ的学会怎么去写。
 - [ ] 前段基础知识十分薄弱，连HTMl都用不熟练。
-- [ ] 当前网站反应过慢，需要进一步优化。
+- [ ] 当前网站反应过慢，需要进一步优化。-> 可以用document-based database来代替sqlserver，这样子就不需要join的操作。 
